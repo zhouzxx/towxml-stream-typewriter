@@ -39,9 +39,9 @@
 
 将 wxcomponents 下载下来，放到微信小程序代码或者 uniapp 代码的指定文件夹，作为一个微信小程序组件使用，这和之前在项目中使用 towxml 是一样的，这里给大家写了一个uniapp和一个原生微信小程序的对话聊天使用示例,大家最好下载下来，模仿着写，里面的注释很详细，并有些最佳实践,如加载历史消息、滚动到底部、终止打印、停留页面终止自动滚动到底部、一键滚动到底部
 
-[uniapp使用示例](https://github.com/zhouzxx/towxml-stream-typer-uniapp-example)
+[uniapp使用示例](https://github.com/zhouzxx/towxml-stream-typewriter-uniapp-example)
 
-[原生微信小程序使用示例](https://github.com/zhouzxx/towxml-stream-typer-weChat-example)
+[原生微信小程序使用示例](https://github.com/zhouzxx/towxml-stream-typewriter-weChat-example)
 
 ***强烈建议大家参考这两个示例的任何一个进行使用，看使用文档可能费劲，还不如直接看示例代码，里面的注释很详细并有些使用说明***
 
