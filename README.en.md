@@ -1,6 +1,6 @@
 [Demo Image Click to view the effect (Due to network issues, the GIF animation may not display properly. The video-converted GIF also has lag. It is more straightforward to download the demo and run it on your computer.)](http://47.119.142.242/static/towxml-stream-typer.gif)
 
-# towxml-stream-typer
+# towxml-stream-typewriter
 
 > ##### For issues, contact me on WeChat: zxx-wwj-zbl &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
