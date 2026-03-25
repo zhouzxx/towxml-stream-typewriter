@@ -1,6 +1,6 @@
 [演示图片 点击查看效果（由于网络问题，gif动图可能不一定能良好地展示，同时视频转的gif后有点卡顿，你直接下载示例在自己电脑上跑更直接）](http://47.119.142.242/static/towxml-stream-typer.gif)
 
-# towxml-steam-typer
+# towxml-steam-typewriter
 
 > ##### 使用有问题请联系 微信：zxx-wwj-zbl &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
