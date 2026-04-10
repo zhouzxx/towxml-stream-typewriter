@@ -59,7 +59,7 @@ Component({
     },
     speed: {
       type: Number,
-      value: 5,
+      value: 6,
     },
     openTyper: {
       type: Boolean,

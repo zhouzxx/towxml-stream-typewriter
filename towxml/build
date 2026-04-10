@@ -98,9 +98,6 @@ class Build{
             'dynamic-markdown-plugins': 1,
             'dynamic-highlight-languages': 1
         };
-        if(!enableHighlight){
-            removeTags['no-highlight'] = 1;
-        };
         const stripTowxmlRemoveBlocks = str => {
             return str.replace(
                 /\/\/@towxml-remove-start\s+([^\r\n]+)\r?\n([\s\S]*?)\/\/@towxml-remove-end\s+\1[^\r\n]*\r?\n?/g,
@@ -205,8 +202,11 @@ class Build{
         let markdownIndex = path.join(_ts.outDir,'parse','markdown','index.js');
         let markdownIndexStr = fs.readFileSync(markdownIndex,'utf8');
         markdownIndexStr = stripTowxmlRemoveBlocks(markdownIndexStr);
-        if(!enableHighlight || !config.highlight.length){
-            markdownIndexStr = markdownIndexStr.replace(/hljs =/g,'\/\/ hljs =');
+        if(!enableHighlight){
+            markdownIndexStr = markdownIndexStr.replace(
+                /if\s*\(\s*config\.highlight\.length\s*&&\s*hljs\s*\)\s*\{/g,
+                'if(false){'
+            );
         };
 
         // 处理微信新版本不能动态require的问题（parse/markdown/index.js）
@@ -255,27 +255,35 @@ class Build{
         };
 
         const highlightRoot = path.join(_ts.outDir,'parse','highlight');
-        if(enableHighlight){
+        if(fs.existsSync(highlightRoot)){
             // 处理微信新版本不能动态require的问题（parse/highlight/index.js）
             let highlightIndex = path.join(highlightRoot,'index.js');
-            let highlightIndexStr = fs.readFileSync(highlightIndex,'utf8');
-            highlightIndexStr = stripTowxmlRemoveBlocks(highlightIndexStr);
-            let registerLanguageStr = (()=>{
-                let result = ``;
-                config.highlight.forEach(item => {
-                    result += `hljs.registerLanguage('${item}', require('./languages/${item}').default);`;
-                });
-                return result;
-            })();
-            if(registerLanguageStr){
-                highlightIndexStr = highlightIndexStr.replace(/\/\/@registerLanguage/g,registerLanguageStr);
-            };
-            fs.writeFileSync(highlightIndex,highlightIndexStr);
+            if(fs.existsSync(highlightIndex)){
+                let highlightIndexStr = fs.readFileSync(highlightIndex,'utf8');
+                highlightIndexStr = stripTowxmlRemoveBlocks(highlightIndexStr);
+                if(enableHighlight && config.highlight.length){
+                    let registerLanguageStr = (()=>{
+                        let result = ``;
+                        config.highlight.forEach(item => {
+                            result += `hljs.registerLanguage('${item}', require('./languages/${item}').default);`;
+                        });
+                        return result;
+                    })();
+                    if(registerLanguageStr){
+                        highlightIndexStr = highlightIndexStr.replace(/\/\/@registerLanguage/g,registerLanguageStr);
+                    };
+                }
+                fs.writeFileSync(highlightIndex,highlightIndexStr);
+            }
 
-            // 裁剪 highlight 语言文件
             const highlightLangDir = path.join(highlightRoot,'languages');
-            if(fs.existsSync(highlightLangDir)){
-                if(config.highlight.length){
+            const highlightStyleDir = path.join(highlightRoot,'style');
+            if(!enableHighlight || !config.highlight.length){
+                fs.removeSync(highlightLangDir);
+                fs.removeSync(highlightStyleDir);
+            }else{
+                // 裁剪 highlight 语言文件
+                if(fs.existsSync(highlightLangDir)){
                     fs.readdirSync(highlightLangDir).forEach(file => {
                         const full = path.join(highlightLangDir,file);
                         const info = getPathInfo(full);
@@ -292,12 +300,8 @@ class Build{
                             fs.removeSync(full);
                         }
                     });
-                }else{
-                    fs.removeSync(highlightLangDir);
                 }
             }
-        }else{
-            fs.removeSync(highlightRoot);
         };
 
         // 如果不启用highlight组件，则注释掉对应的样式
@@ -318,17 +322,6 @@ class Build{
                 fs.writeFileSync(item,itemStr);
             });
         };
-
-        const decodeWxmlPath = path.join(_ts.outDir,'decode.wxml');
-        if(fs.existsSync(decodeWxmlPath)){
-            try{
-                let dw = fs.readFileSync(decodeWxmlPath,'utf8');
-                const fixed = dw.replace(/item\.attr\['lazy-load'\]/g,"item.attrs['lazy-load']");
-                if(fixed !== dw){
-                    fs.writeFileSync(decodeWxmlPath,fixed);
-                }
-            }catch(e){}
-        }
 
         console.log(`构建完成，请将『`,_ts.outDir,`』目录复制到小程序项目目录下${!_ts.option.debug ? '，并改名为『towxml』' : ''}`);
     }
