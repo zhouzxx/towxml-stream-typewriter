@@ -41,7 +41,7 @@ npm run build 打包后使用，支持微信开发者工具的代码保护
 
 - **npm install** 
 
-- **npm run build**  执行这一步之前可以去config.js中配置是否将echarts、latex、yuml等等打包上去，默认是没有打包进去，默认包大小293k(极限最小体积)左右，打包完成在towxml目录下生成dist文件夹
+- **npm run build**  执行这一步之前可以去config.js中配置是否将echarts、latex、yuml等等打包上去，默认是没有打包进去，默认包大小309k(极限最小体积)左右，打包完成在towxml目录下生成dist文件夹
 
 - 将dist文件夹改名为towxml,放到微信小程序代码或者 uniapp 代码的指定文件夹，作为一个微信小程序组件使用，本质上这就是一个原生微信小程序组件
 
