@@ -100,3 +100,13 @@ npm run build 打包后使用，支持微信开发者工具的代码保护
 
 
 ##### 5.后续代码更新了，你就把这个towxml文件夹下载下来，打包，然后替换你项目中的towmxl文件夹就行了。当然如果添加了某些新功能，也可能会在demo中写一些代码配合调用。
+
+## Star History
+
+<a href="https://www.star-history.com/?repos=zhouzxx%2Ftowxml-stream-typewriter&type=date&legend=top-left">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=zhouzxx/towxml-stream-typewriter&type=date&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=zhouzxx/towxml-stream-typewriter&type=date&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=zhouzxx/towxml-stream-typewriter&type=date&legend=top-left" />
+ </picture>
+</a>
